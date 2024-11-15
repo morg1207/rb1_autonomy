@@ -1,0 +1,58 @@
+bt_publish_transform:
+  ros__parameters:
+
+    use_sim_time: true
+
+    # Geometry parameters
+    radius_rb1: 0.25
+    shelf_length: 0.9
+    distance_aproach_target_shelf: 0.05
+
+bt_change_footprint:
+  ros__parameters:
+
+    use_sim_time: true
+
+    shelf_length: 1.0
+    shelf_width: 1.0
+    rb1_radius: 0.25
+
+
+bt:
+  ros__parameters:
+
+    use_sim_time: true
+    #bt_xml: "approach_and_pick_shelf.xml"
+    #bt_xml: "find_station_and_init_local.xml"
+    #bt_xml: "find_shelf_and_publish.xml"
+    # bt_xml: "handler_shelf.xml"
+    #bt_xml: "find_shelf.xml"
+    #bt_xml: "behaviortree_entire.xml"
+    #bt_xml: "find_shelf_and_nav.xml"
+    #bt_xml: "find_shelf_and_turn_test.xml"
+    bt_xml: "carry_and_discharge_shelf.xml"
+    #bt_xml: "find_deep_shelf.xml"
+    #bt_xml: "change_footprint.xml"
+    #bt_xml: "find_shelf.xml"
+    #bt_xml: "discharge.xml"
+    #bt_xml: "init_localization.xml"
+    #bt_xml: "nav.xml"
+    #bt_xml: turn_robot.xml
+    #bt_xml: "fibonacci.xml"
+    #bt_xml: "entire.xml"
+ 
+bt_turn_robot:
+  ros__parameters:
+
+    use_sim_time: true
+
+    vel_turn: 0.4
+
+bt_nav_poses:
+  ros__parameters:
+
+    use_sim_time: true
+
+    nav_poses_x: [1.0, 2.5, 4.0]
+    nav_poses_y: [0.0, 0.5, 0.5]
+    nav_poses_z: [0.0, 0.0, 0.0]

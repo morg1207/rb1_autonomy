@@ -1,0 +1,121 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="SubTreeApproachAndPickShelf">
+        <Sequence>
+
+            <!-- ***************** Publish transforms *********************** -->
+
+            <ClientFindObject name = "client_find_object" 
+                port_int_type_object = "shelf" 
+                port_out_position_object="{position_shelf}"/>
+            <PublishTransform name = "publish_transform" 
+                port_int_position_object="{position_shelf}"
+                port_int_get_target_nav = "true" 
+                port_out_target_nav_goal="{target_goal_nav}"/>
+                
+            <!-- ***************** Go to shelf *********************** -->  
+            <ClientNav name = "nav2_client" 
+                goal_nav= "{target_goal_nav}"/>
+
+            <!-- ***************** Approach shelf *********************** -->  
+            <!-- Update transform-->    
+            <ReactiveFallback>
+                <ClientFindObject name = "client_find_object" 
+                    port_int_type_object = "shelf" 
+                    port_out_position_object="{position_shelf}"/>
+                <TurnRobot name = "turn_robot" 
+                    port_int_angle_rotate="5.17"/>
+            </ReactiveFallback>
+            <PublishTransform name = "publish_transform" 
+                    port_int_position_object="{position_shelf}"
+                    port_int_get_target_nav = "false" />
+
+            <!-- approach shelf-->
+            <ReactiveSequence>
+                <ClientApproachShelf name = "approach_shelf_client" 
+                    port_int_type_control= "approach_shelf" 
+                    port_out_control_state_output="{control_state}"/>
+                <CheckApproach name="Check_approach" 
+                    port_int_control_state="{control_state}"/>
+            </ReactiveSequence>
+
+            <!-- Enter the shelf-->
+            <Sequence>
+                <ReactiveSequence>
+                    <ClientApproachShelf name = "approach_shelf_client"            
+                        port_int_type_control="enter_to_shelf" 
+                        port_out_control_state_output="{control_state_enter}"/>
+                    <CheckApproach name="Check_approach" 
+                        port_int_control_state="{control_state_enter}"/>
+                </ReactiveSequence>
+            </Sequence>
+
+            <!-- ***************** Pick shelf *********************** -->  
+            <!-- Up platform -->
+            <Repeat name="repeat" num_cycles="5">
+                <Delay name="delay" delay_msec= "400">
+                    <HandlerPlatform name="shelf_handler" 
+                        port_int_type_action="up" />
+                </Delay>
+            </Repeat>
+
+            <!-- Change Footprint -->
+            <Repeat name="repeat" num_cycles="3">
+                <Delay name="delay" delay_msec= "100">
+                    <ChangeFootprint name="change_footprint" 
+                        port_int_type_change="with_shelf" />
+                </Delay>
+            </Repeat>
+
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <Action ID="TurnRobot">
+            <input_port name="port_int_angle_rotate"
+                type="double"/>
+        </Action>
+
+        <Action ID="ClientFindObject">
+            <input_port name="port_int_type_object"
+                        type="std::string"/>
+            <output_port name="port_out_position_object"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+
+        <Action ID="PublishTransform">
+            <input_port name="port_int_position_object"
+                        type="geometry_msgs::msg::Pose"/>
+            <input_port name="port_int_get_target_nav"
+                        type="bool"/>
+            <output_port name="port_out_target_nav_goal"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+
+        <Action ID="ClientApproachShelf">
+            <input_port name="port_int_type_control"
+                        type="std::string"/>
+            <output_port name="port_out_control_state_output"
+                        type="std::string"/>
+        </Action>
+
+        <Action ID="ClientNav">
+            <input_port name="goal_nav"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+
+        <Action ID="HandlerPlatform">
+            <input_port name="port_int_type_action"
+                        type="std::string"/>
+        </Action>
+
+        <Action ID="ChangeFootprint">
+            <input_port name="port_int_type_change"
+                        type="std::string"/>
+        </Action>
+
+        <Condition ID="CheckApproach">
+            <input_port name="port_int_control_state" type="std::string"/>
+        </Condition>
+
+    </TreeNodesModel>
+</root>
+

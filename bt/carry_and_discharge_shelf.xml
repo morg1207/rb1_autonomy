@@ -1,0 +1,93 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="SubTreeCarryAndDischargeShelf">
+        <Sequence>
+            <!-- Wait for nav goal -->
+            <WaitForGoalNav name="wait_for_nav_goal" 
+                port_int_nav_goal_timeout_sec = "20"
+                por_out_goal_nav = "{target_goal_nav}"/>
+
+            <!-- Nav to discharge pose -->    
+            <ClientNav name = "nav2_client" 
+                goal_nav= "{target_goal_nav}"/>
+
+            <!-- Down shelf -->
+            <Repeat name="repeat" num_cycles="5">
+                <Delay name="delay" delay_msec= "400">
+                    <HandlerPlatform name="shelf_handler" 
+                        port_int_type_action="down" />
+                </Delay>
+            </Repeat>
+            <!-- Back the shelf-->
+            <Sequence>
+                <ReactiveSequence>
+                    <ClientApproachShelf name = "approach_shelf_client" 
+                        port_int_type_control="back_to_shelf" 
+                        port_out_control_state_output="{control_state_back}"/>
+                    <CheckApproach name="check_approach" 
+                        port_int_control_state="{control_state_back}"/>
+                </ReactiveSequence>
+            </Sequence>
+            <!-- Change Footprint -->
+            <Repeat name="repeat" num_cycles="3">
+                <Delay name="delay" delay_msec= "100">
+                    <ChangeFootprint name="change_footprint" 
+                        port_int_type_change="without_shelf" />
+                </Delay>
+            </Repeat>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+
+        <Action ID="ClientFindObject">
+            <input_port name="port_int_type_object"
+                        type="std::string"/>
+            <output_port name="port_out_position_object"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="WaitForGoalNav">
+            <input_port name="port_int_nav_goal_timeout_sec"
+                        type="int"/>
+            <output_port name="por_out_goal_nav"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="PublishTransform">
+            <input_port name="port_int_position_object"
+                        type="geometry_msgs::msg::Pose"/>
+            <input_port name="port_int_get_target_nav"
+                        type="bool"/>
+            <output_port name="port_out_target_nav_goal"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientApproachShelf">
+            <input_port name="port_int_type_control"
+                        type="std::string"/>
+            <output_port name="port_out_control_state_output"
+                        type="std::string"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientNav">
+            <input_port name="goal"
+                        type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="HandlerPlatform">
+            <input_port name="port_int_type_action"
+                        type="std::string"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ChangeFootprint">
+            <input_port name="port_int_type_action"
+                        type="std::string"/>
+        </Action>   
+        <!-- ***** -->
+        <Condition ID="CheckApproach">
+            <input_port name="port_int_control_state" type="std::string"/>
+        </Condition>
+
+
+    </TreeNodesModel>
+</root>
+

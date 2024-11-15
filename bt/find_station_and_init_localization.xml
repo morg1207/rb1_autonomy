@@ -1,0 +1,81 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="SubTreeFindStationAndInitLocalization">
+        <Sequence>
+            <!-- ***************** Serach charge station *********************** -->
+            <ReactiveFallback>
+                <ClientFindObject name = "client_find_object"  
+                    port_int_type_object= "station" 
+                    port_out_position_object="{position_station}"/>
+                <TurnRobot name = "Turn_robot" 
+                    port_int_angle_rotate="5.17"/>
+            </ReactiveFallback>
+
+            <!-- ***************** Set initial pose  *********************** -->
+            <ClientInitLocalization name = "init_localization _client" 
+                port_int_position_charge_station="{position_station}"/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+
+        <Action ID="NavPoses">
+            <input_port name="port_int_nav_poses"
+                type="std::string"/>
+            <output_port name="port_out_target_nav_goal"
+                type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientInitLocalization">
+            <input_port name="port_int_position_charge_station"
+                type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="TurnRobot">
+            <input_port name="port_int_angle_rotate"
+                type="double"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientFindObject">
+            <input_port name="port_int_type_object"
+                type="std::string"/>
+            <output_port name="port_out_position_object"
+                type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="PublishTransform">
+            <input_port name="port_int_position_object"
+                type="geometry_msgs::msg::Pose"/>
+            <input_port name="port_int_get_target_nav"
+                type="bool"/>
+            <output_port name="port_out_target_nav_goal"
+                type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientApproachShelf">
+            <input_port name="port_int_type_control"
+                type="std::string"/>
+            <output_port name="port_out_control_state_output"
+                type="std::string"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ClientNav">
+            <input_port name="goal_nav"
+                type="geometry_msgs::msg::Pose"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="HandlerPlatform">
+            <input_port name="port_int_type_action"
+                type="std::string"/>
+        </Action>
+        <!-- ***** -->
+        <Action ID="ChangeFootprint">
+            <input_port name="port_int_type_action"
+                type="std::string"/>
+        </Action>
+        <!-- ***** -->
+        <Condition ID="CheckApproach">
+            <input_port name="port_int_control_state" 
+                type="std::string"/>
+        </Condition>
+    </TreeNodesModel>
+</root>
+

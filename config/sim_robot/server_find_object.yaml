@@ -1,0 +1,23 @@
+server_find_object:
+  ros__parameters:
+
+    use_sim_time: True
+    
+    qos_overrides:
+      scan:
+        subscription:
+          reliability: reliable
+          depth: 100
+          durability: transient_local
+          history: keep_last
+
+    limit_intensity_laser_detect: 2200.0
+
+    limit_min_detection_distance_legs_shelf: 0.60
+    limit_max_detection_distance_legs_shelf: 0.80
+
+    # only for real robot
+    limit_min_detection_distance_legs_charge_station: 0.60
+    limit_max_detection_distance_legs_charge_station: 0.80
+
+    filter_laser_distance_noise: 0.05

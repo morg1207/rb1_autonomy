@@ -1,0 +1,7 @@
+server_init_localization:
+  ros__parameters:
+    use_sim_time: true
+    pose_map_to_station_charge_x: -3.0
+    pose_map_to_station_charge_y: -0.5
+    pose_map_to_station_charge_yaw: 1.57
+
