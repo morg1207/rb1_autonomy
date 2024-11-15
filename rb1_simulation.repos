@@ -9,7 +9,7 @@ repositories:
     version: main
   rb1_interfaces:
     type: git
-    url: https://github.com/morg1207/rb1_nav2.git
+    url: https://github.com/morg1207/rb1_interfaces.git
     version: main
   rb1_utils:
     type: git
