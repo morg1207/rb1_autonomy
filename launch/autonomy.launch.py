@@ -32,7 +32,6 @@ def generate_launch_description():
     #~~~~~~~~~~~~~~~~~~~~~~~~ NODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     autonomy = Node(
-        #name='autonomy',
         executable='main_autonomy',
         package='rb1_autonomy',
         parameters=[autonomy_yaml],

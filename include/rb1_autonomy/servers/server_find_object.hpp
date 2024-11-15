@@ -64,6 +64,5 @@ private:
     double limit_max_detection_distance_legs_shelf_;
     double limit_min_detection_distance_legs_charge_station_;
     double limit_max_detection_distance_legs_charge_station_;
-    double filter_laser_distance_noise_;
 
 };

@@ -3,14 +3,6 @@ server_find_object:
 
     use_sim_time: True
     
-    qos_overrides:
-      scan:
-        subscription:
-          reliability: reliable
-          depth: 100
-          durability: transient_local
-          history: keep_last
-
     limit_intensity_laser_detect: 2200.0
 
     limit_min_detection_distance_legs_shelf: 0.60

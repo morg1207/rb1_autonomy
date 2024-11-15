@@ -11,3 +11,7 @@ repositories:
     type: git
     url: https://github.com/morg1207/rb1_utils.git
     version: main
+  BehaviorTree
+    type: git
+    url: https://github.com/BehaviorTree/BehaviorTree.ROS2.git
+    version: main

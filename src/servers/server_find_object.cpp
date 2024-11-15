@@ -256,11 +256,6 @@ void ServerFindObject::initParameters(){
               "Maximum detection distance for charge station legs [%.3f] ",
               limit_max_detection_distance_legs_charge_station_);
   //----------------------------------------------------
-  declare_parameter("filter_laser_distance_noise", 0.35);
-  filter_laser_distance_noise_ = get_parameter("filter_laser_distance_noise").as_double();
-  RCLCPP_INFO(get_logger(), "Laser distance noise filter [%.3f] ",
-              filter_laser_distance_noise_);
-
 
 }
 
