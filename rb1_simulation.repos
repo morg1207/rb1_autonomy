@@ -1,17 +1,21 @@
 repositories:
-  rb1_warehouse_simulation
+  rb1_warehouse_simulation:
     type: git
     url: https://github.com/morg1207/warehouse_rb1_sim.git
     version: main
-  rb1_nav2
+  rb1_nav2:
     type: git
     url: https://github.com/morg1207/rb1_nav2.git
     version: main
-  rb1_utils
+  rb1_interfaces:
+    type: git
+    url: https://github.com/morg1207/rb1_nav2.git
+    version: main
+  rb1_utils:
     type: git
     url: https://github.com/morg1207/rb1_utils.git
     version: main
-  BehaviorTree
+  BehaviorTree:
     type: git
     url: https://github.com/BehaviorTree/BehaviorTree.ROS2.git
-    version: main
+    version: humble
