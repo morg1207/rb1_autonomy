@@ -3,7 +3,10 @@ This project is about topics like, autonomous navigation, behavior tree and ros2
 
 I would like to thank the provided simulation build and behavior_tree_ros2 package for a wrapper of ros2 concepts for BT.
 
+You can find the implementation and testing on the real robot in the following [video](https://www.youtube.com/watch?v=rZ5ojMnCDvw)
+
 I hope this project can contribute to the ros2 community.
+
 
 ## 1. Configuración
 
@@ -337,4 +340,14 @@ source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 launch rb1_autonomy autonomy.launch.py robot_mode:=real_robot
 ```
+
+You can find the implementation and testing on the real robot in the following [video](https://www.youtube.com/watch?v=rZ5ojMnCDvw)
+
+
+## Notes
+
+The approach used in this repository focuses on sending navigation waypoints to allow the robot to inspect its surroundings. As shown in the video, a different method is employed to search for the shelf, which involves detecting the legs of the shelf by analyzing the clustering of laser readings. 
+
+I am still working on improving the code, documenting it, and fixing some bugs related to the approach demonstrated in the video.
+
 
