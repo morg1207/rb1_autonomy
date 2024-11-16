@@ -1,21 +1,6 @@
 <root BTCPP_format="4">
     <BehaviorTree ID="SubTreeApproachAndPickShelf">
         <Sequence>
-
-            <!-- ***************** Publish transforms *********************** -->
-
-            <ClientFindObject name = "client_find_object" 
-                port_int_type_object = "shelf" 
-                port_out_position_object="{position_shelf}"/>
-            <PublishTransform name = "publish_transform" 
-                port_int_position_object="{position_shelf}"
-                port_int_get_target_nav = "true" 
-                port_out_target_nav_goal="{target_goal_nav}"/>
-                
-            <!-- ***************** Go to shelf *********************** -->  
-            <ClientNav name = "nav2_client" 
-                goal_nav= "{target_goal_nav}"/>
-
             <!-- ***************** Approach shelf *********************** -->  
             <!-- Update transform-->    
             <ReactiveFallback>

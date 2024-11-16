@@ -200,7 +200,7 @@ Here is the list with the names of your action nodes for the behavior tree, form
 #### 3.1.1 Launch simulation
 Terminal 1
 ```bash
-cd ros2_ws
+cd rb1_ws
 source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 launch the_construct_office_gazebo warehouse_rb1_rviz.launch.xml
@@ -208,7 +208,7 @@ ros2 launch the_construct_office_gazebo warehouse_rb1_rviz.launch.xml
 #### 3.1.2 Launch Nav2
 Terminal 2
 ```bash
-cd ros2_ws
+cd rb1_ws
 source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 launch path_planner_server navigation.launch.py type_simulation:=sim_robot use_sim_time:=True map_file:=warehouse_map_sim_edit.yaml 
@@ -216,7 +216,7 @@ ros2 launch path_planner_server navigation.launch.py type_simulation:=sim_robot 
 #### 3.1.3 Launch servers
 Terminal 3
 ```bash
-cd ros2_ws
+cd rb1_ws
 source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 launch rb1_autonomy servers.launch.py robot_mode:=sim_robot
@@ -225,18 +225,88 @@ ros2 launch rb1_autonomy servers.launch.py robot_mode:=sim_robot
 Terminal 4
 
 ```bash
-cd ros2_ws
+cd rb1_ws
 source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 launch rb1_autonomy autonomy.launch.py robot_mode:=sim_robot
 ```
 #### 3.1.5 Select a behavior tree
 
+1. Execute `find_shelf` behavior tree
+
+Terminal 5
 ```bash
-cd ros2_ws
+cd rb1_ws
 source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
-ros2 topic pub -t 1 /bt_selector std_msgs/msg/String "{data: 'approach_and_pick_shelf'}" 
+ros2 topic pub -t 3 /bt_selector std_msgs/msg/String "{data: 'find_shelf'}" 
+```
+![](images/gifs/find_shelf.gif)
+
+2. Execute `approach_and_pick_shelf` behavior tree
+
+Terminal 5
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 topic pub -t 3 /bt_selector std_msgs/msg/String "{data: 'approach_and_pick_shelf'}" 
+```
+![](images/gifs/approach_and_pick_shelf.gif)
+
+3. Execute `carry_and_discharge_shelf` behavior tree
+
+Terminal 5
+  As seen in the video, when the robot picks up the shelf, it is often too close to nearby objects and may collide with them. The robot needs to be freed from this collision before sending it a new navigation point,this occurs because the robot's footprint  . You must manually move the robot out of the collision by executing the following steps:
+
+![](images/gifs/carry_and_dischargge_shelf.gif)
+
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard 
+```
+  You can achieve this by manually moving the robot backward, as shown in the video. Once the robot is clear of the collision, you can proceed to execute the next behavior tree.
+
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 topic pub -t 3 /bt_selector std_msgs/msg/String "{data: 'carry_and_discharge_shelf'}" 
+```
+This behavior tree requires you to publish a navigation position.
+
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 topic pub -t 3 /nav_goal_for_discharge geometry_msgs/msg/Pose "{position: {x: 0.53, y: 0.62, z: 2.0}, orientation: {x: 0.0, y: 0.0, z: 0.7, w: 0.71}}"
+
+```
+5. Execute `entire` behavior tree
+
+You can also run the entire behavior tree. To do this, ensure that the shelf is positioned in a way that avoids complicated situations leading to collisions
+
+You need to publish a position when you see the message "waiting for nav goal" in terminal 4. This will occur once the robot has successfully loaded the shelf.
+
+
+
+Terminal 5
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 topic pub -t 3 /bt_selector std_msgs/msg/String "{data: 'entire_simulation'}" 
+```
+
+  This behavior tree requires you to publish a navigation position.
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 topic pub -t 3 /nav_goal_for_discharge geometry_msgs/msg/Pose "{position: {x: 4.56, y: 0.0, z: 0.58}, orientation: {x: 0.0, y: 0.0, z: 0.68, w: 0.72}}"
+
 ```
 
 ## Real Robots

@@ -36,7 +36,14 @@
                 <ClientNav name = "nav2_client" 
                     goal_nav= "{target_goal_nav_3}"/>
             </ReactiveFallback>
-
+            <!-- ***************** Publish transform *********************** -->
+            <PublishTransform name = "publish_transform" 
+                port_int_position_object="{position_shelf}"
+                port_int_get_target_nav = "true" 
+                port_out_target_nav_goal="{target_goal_nav}"/>
+            <!-- ***************** Go to shelf *********************** -->  
+            <ClientNav name = "nav2_client" 
+                goal_nav= "{target_goal_nav}"/>
         </Sequence>
     </BehaviorTree>
     <TreeNodesModel>

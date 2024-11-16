@@ -5,12 +5,12 @@
     <include path="./approach_and_pick_shelf.xml" />
     <include path="./carry_and_discharge_shelf.xml" />
     
-    <BehaviorTree ID="mainTreeID">
+    <BehaviorTree ID="SubTreeEntire">
         <Sequence>
-            <SubTree ID="SubTreeInitLocalization" />
+            <SubTree ID="SubTreeFindStationAndInitLocalization" />
             <SubTree ID="SubTreeFindShelf"/>
-            <SubTree ID="SubTreeApproachAndPick"/>
-            <SubTree ID="SubTreeCarryAndDischarge"/>
+            <SubTree ID="SubTreeApproachAndPickShelf"/>
+            <SubTree ID="SubTreeCarryAndDischargeShelf"/>
         </Sequence>
     </BehaviorTree>
     <TreeNodesModel>

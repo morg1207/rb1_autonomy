@@ -42,7 +42,8 @@ void AutonomyRb1::init(){
         "find_shelf",
         "approach_and_pick_shelf",
         "carry_and_discharge_shelf",
-        "entire"
+        "entire",
+        "entire_simulation"
   };
   RCLCPP_DEBUG(get_logger(), "Share Package : %s", package_share_.c_str());
   RCLCPP_INFO(get_logger(),"Please select a behavior tree");

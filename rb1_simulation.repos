@@ -17,5 +17,5 @@ repositories:
     version: main
   BehaviorTree:
     type: git
-    url: https://github.com/BehaviorTree/BehaviorTree.ROS2.git
+    url: https://github.com/morg1207/BehaviorTree.ROS2.git
     version: humble
