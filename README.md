@@ -1,12 +1,22 @@
 ## PROJECT ABOUT AUTONOMOUS NAVIGATION, BEHAVIOR TREES WITH RB1 ROBOT
-This project is about topics like, autonomous navigation, behavior tree and ros2 concepts using rb1 robot in a warehouse environment, this project was tested on humble ros2.
 
-I would like to thank the provided simulation build and behavior_tree_ros2 package for a wrapper of ros2 concepts for BT.
+### SUMARY
+This project is about topics like, autonomous navigation, behavior tree and ros2 concepts using rb1 robot in a warehouse environment, this project was tested on humble ros2.
 
 You can find the implementation and testing on the real robot in the following [video](https://www.youtube.com/watch?v=rZ5ojMnCDvw)
 
-I hope this project can contribute to the ros2 community.
+This project is to develop a complex behavior based on multiple simpler behaviors using the behavior tree. The behavior consists of
 
+1. Find the charging station and localize the robot.
+2. Detect a shelf anywhere in the warehouse.
+3. Get underneath the shelf and use the elevator to pick it up.
+4. Place the shelf at a desired location.
+
+
+I would like to thank the provided simulation build and [behavior_tree_ros2](https://github.com/BehaviorTree/BehaviorTree.ROS2) package for a wrapper of ros2 concepts for BT and to The [Construct](https://www.theconstruct.ai/) for the simulation and the knowledge provided.
+
+
+I hope this project can contribute to the ros2 community.
 
 ## 1. Configuración
 
