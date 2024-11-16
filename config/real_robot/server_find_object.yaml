@@ -1,0 +1,15 @@
+server_find_object:
+  ros__parameters:
+
+    use_sim_time: false
+    
+    limit_intensity_laser_detect: 2200.0
+
+    limit_min_detection_distance_legs_shelf: 0.50
+    limit_max_detection_distance_legs_shelf: 0.70
+
+    # only for real robot
+    limit_min_detection_distance_legs_charge_station: 0.25
+    limit_max_detection_distance_legs_charge_station: 0.35
+
+    filter_laser_distance_noise: 0.05

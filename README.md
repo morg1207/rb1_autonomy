@@ -46,7 +46,7 @@ Aquí tienes la corrección en inglés:
 - `y` = theta
 - `z` = beta."
 
-## Parameters
+#### Parameters
 
 - `use_sim_time`:  
   Use `true` for simulation and `false` for the real robot.
@@ -72,7 +72,7 @@ This server controls the approach to and exit from the shelf using frames. There
 
 <img src="./images/servers/approach_shelf.jpg" alt="rviz" width="600"/>  
 
-## Parameters
+#### Parameters
 
 - `use_sim_time`:  
   Use `true` for simulation and `false` for the real robot.
@@ -115,7 +115,7 @@ This server determines the robot's location relative to the map by using the pos
 
 <img src="./images/servers/init_localization.png" alt="rviz" width="600"/>  
 
-## Parameters
+#### Parameters
 
 - `use_sim_time`:  
   Use `true` for simulation and `false` for the real robot.
@@ -252,14 +252,15 @@ source /opt/ros/$ROS_DISTRO/setup,bash
 source install/setup.bash
 ros2 topic pub -t 3 /bt_selector std_msgs/msg/String "{data: 'approach_and_pick_shelf'}" 
 ```
-![](images/gifs/approach_and_pick_shelf.gif)
+<img src="images/gifs/approach_and_pick_shelf.gif" width="500"/>
 
 3. Execute `carry_and_discharge_shelf` behavior tree
 
 Terminal 5
   As seen in the video, when the robot picks up the shelf, it is often too close to nearby objects and may collide with them. The robot needs to be freed from this collision before sending it a new navigation point,this occurs because the robot's footprint  . You must manually move the robot out of the collision by executing the following steps:
 
-![](images/gifs/carry_and_dischargge_shelf.gif)
+<img src="images/gifs/carry_and_dischargge_shelf.gif" width="500"/>
+
 
 ```bash
 cd rb1_ws
@@ -309,23 +310,31 @@ ros2 topic pub -t 3 /nav_goal_for_discharge geometry_msgs/msg/Pose "{position: {
 
 ```
 
-## Real Robots
-### Launch servers
+### 3.2 Real robot
+
+#### 3.2.1 Launch Nav2
 Terminal 1
 ```bash
-ros2 launch rb1_autonomy servers.launch.py robot_mode:=sim_robot
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 launch path_planner_server navigation.launch.py type_simulation:=real_robot use_sim_time:=False map_file:=warehouse_map_real.yaml 
 ```
+#### 3.2.2 Launch servers
 Terminal 2
+```bash
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 launch rb1_autonomy servers.launch.py robot_mode:=real_robot
+```
+#### 3.2.3 Launch autonomy
+Terminal 3
 
 ```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
+cd rb1_ws
+source /opt/ros/$ROS_DISTRO/setup,bash
+source install/setup.bash
+ros2 launch rb1_autonomy autonomy.launch.py robot_mode:=real_robot
 ```
 
-## Launch only localization 
-```bash
-ros2 launch localization_server localization.launch.py map_file:=warehouse_map_real.yaml use_sim_time:=True
-```
-### Launch only PathPlanner 
-
-```bash
-ros2 launch path_planner_server navigation.launch.py type_simulation:=real_robot use_sim_time:=False 
